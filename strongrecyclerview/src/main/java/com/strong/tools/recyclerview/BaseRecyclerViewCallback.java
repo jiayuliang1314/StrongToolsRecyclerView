@@ -1,4 +1,4 @@
-package wavely.base.views.recycleview;
+package com.strong.tools.recyclerview;
 
 import android.view.View;
 

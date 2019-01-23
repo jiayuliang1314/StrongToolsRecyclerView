@@ -1,4 +1,4 @@
-package wavely.base.views.recycleview;
+package com.strong.tools.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
