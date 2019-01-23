@@ -8,19 +8,22 @@ allprojects {
     }
 }
 
-implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.0'
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.1'
 
 ## 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
-    void onBindView(View view, int position, T item);
+(```)
+public interface BaseRecyclerViewCallback<T> {
+    void onBindView(BaseViewHolder holder, int position, T item);
 
     void onClickItem(View view, int position, T item);
 
     boolean onLongClickItem(View view, int position, T item);
 
     int getViewRes();
-
+}
+(```)
 ## 2.RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
-
+(```)
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerViewAdapter suggestAdapter;
@@ -30,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.suggestList);
-        
-        //<b>简化RecyclerView.Adapter的创建</b>
+
+        //简化RecyclerView.Adapter的创建
         suggestAdapter = new BaseRecyclerViewAdapter();
         suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<String>() {
             @Override
-            public void onBindView(View view, int position, String item) {
-                TextView textView = view.findViewById(R.id.text);
+            public void onBindView(BaseViewHolder holder, int position, String item) {
+                TextView textView = (TextView) holder.getView(R.id.text);
                 textView.setText(item);
             }
 
@@ -61,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
         list.add("345");
         suggestAdapter.setItems(list);
 
+        //RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
         RecyclerViewUtils.setLayoutManager(this, recyclerView, RecyclerViewUtils.LinearLayoutManagerVertical);
         RecyclerViewUtils.addItemDecoration(this, recyclerView, RecyclerViewUtils.DividerItemDecorationVertical);
         recyclerView.setAdapter(suggestAdapter);
     }
 }
+
+(```)

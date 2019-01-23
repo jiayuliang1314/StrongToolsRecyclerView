@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.suggestList);
 
+        //简化RecyclerView.Adapter的创建
         suggestAdapter = new BaseRecyclerViewAdapter();
         suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<String>() {
             @Override
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClickItem(View view, int position, String item) {
-                Toast.makeText(MainActivity.this, "onClickItem", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "onClickItem "+item, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         list.add("345");
         suggestAdapter.setItems(list);
 
+        //RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
         RecyclerViewUtils.setLayoutManager(this, recyclerView, RecyclerViewUtils.LinearLayoutManagerVertical);
         RecyclerViewUtils.addItemDecoration(this, recyclerView, RecyclerViewUtils.DividerItemDecorationVertical);
         recyclerView.setAdapter(suggestAdapter);
