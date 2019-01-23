@@ -1,5 +1,15 @@
 # StrongToolsRecyclerView简化RecyclerView使用
 
+使用方法：
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.0'
+
 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
     void onBindView(View view, int position, T item);
 
