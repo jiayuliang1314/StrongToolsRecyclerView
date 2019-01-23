@@ -7,7 +7,7 @@ import android.view.View;
  * @param <T> T是item的类型
  */
 public interface BaseRecyclerViewCallback<T> {
-    void onBindView(View view, int position, T item);
+    void onBindView(BaseViewHolder holder, int position, T item);
 
     void onClickItem(View view, int position, T item);
 

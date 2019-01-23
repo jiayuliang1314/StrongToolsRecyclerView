@@ -13,7 +13,7 @@ import java.util.List;
  * BaseRecyclerViewAdapter 简单RecyclerView.Adapter封装，使用的时候传入BaseRecyclerViewCallback和Item list
  */
 
-public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseRecyclerViewHoder> {
+public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     private BaseRecyclerViewCallback baseRecyclerViewCallback;
     private List<V> items;
 
@@ -57,16 +57,18 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter<BaseRecycle
     //region 继承函数
     @NonNull
     @Override
-    public BaseRecyclerViewAdapter.BaseRecyclerViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(baseRecyclerViewCallback.getViewRes(), parent, false);
-        return new BaseRecyclerViewAdapter.BaseRecyclerViewHoder(v);
+        return new BaseViewHolder(v) {
+
+        };
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseRecyclerViewAdapter.BaseRecyclerViewHoder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder != null && holder.itemView != null) {
             if (baseRecyclerViewCallback != null) {
-                baseRecyclerViewCallback.onBindView(holder.itemView, position, getItem(position));
+                baseRecyclerViewCallback.onBindView((BaseViewHolder) holder, position, getItem(position));
             }
             holder.itemView.setOnClickListener(view -> {
                 if (baseRecyclerViewCallback != null) {
@@ -94,10 +96,4 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter<BaseRecycle
         }
     }
     //endregion
-
-    public class BaseRecyclerViewHoder extends RecyclerView.ViewHolder {
-        public BaseRecyclerViewHoder(View view) {
-            super(view);
-        }
-    }
 }

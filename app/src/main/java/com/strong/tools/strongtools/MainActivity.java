@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.strong.tools.recyclerview.BaseRecyclerViewAdapter;
 import com.strong.tools.recyclerview.BaseRecyclerViewCallback;
+import com.strong.tools.recyclerview.BaseViewHolder;
 import com.strong.tools.recyclerview.RecyclerViewUtils;
 
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         suggestAdapter = new BaseRecyclerViewAdapter();
         suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<String>() {
             @Override
-            public void onBindView(View view, int position, String item) {
-                TextView textView = view.findViewById(R.id.text);
+            public void onBindView(BaseViewHolder holder, int position, String item) {
+                TextView textView = (TextView) holder.getView(R.id.text);
                 textView.setText(item);
             }
 
