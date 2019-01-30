@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 public class RecyclerViewUtils {
     public static final int LinearLayoutManagerVertical = 1;
+    public static final int LinearLayoutManagerHORIZONTAL = 2;
     public static final int DividerItemDecorationVertical = 1;
 
     private RecyclerViewUtils() {
@@ -22,6 +23,8 @@ public class RecyclerViewUtils {
     public static void setLayoutManager(Context context, RecyclerView recyclerView, int type) {
         if (type == LinearLayoutManagerVertical) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        } else if (type == LinearLayoutManagerVertical) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }
     }
 
