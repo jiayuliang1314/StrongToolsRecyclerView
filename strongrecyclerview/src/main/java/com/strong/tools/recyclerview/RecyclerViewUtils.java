@@ -23,7 +23,7 @@ public class RecyclerViewUtils {
     public static void setLayoutManager(Context context, RecyclerView recyclerView, int type) {
         if (type == LinearLayoutManagerVertical) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        } else if (type == LinearLayoutManagerVertical) {
+        } else if (type == LinearLayoutManagerHORIZONTAL) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         }
     }
