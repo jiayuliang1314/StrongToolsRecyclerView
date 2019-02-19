@@ -1,4 +1,5 @@
-# StrongToolsRecyclerView简化RecyclerView使用
+StrongToolsRecyclerView简化RecyclerView使用
+=============================================
 
 ## 使用方法：
 ```
@@ -9,7 +10,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.1'
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.3'
 ```
 
 ## 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
@@ -17,11 +18,11 @@ implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.1'
 public interface BaseRecyclerViewCallback<T> {
     void onBindView(BaseViewHolder holder, int position, T item);
 
-    void onClickItem(View view, int position, T item);
-
-    boolean onLongClickItem(View view, int position, T item);
-
     int getViewRes();
+
+    boolean areItemsTheSame(T oldItem, T newItem);
+
+    boolean areContentsTheSame(T oldItem, T newItem);
 }
 ```
 ## 2.RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
