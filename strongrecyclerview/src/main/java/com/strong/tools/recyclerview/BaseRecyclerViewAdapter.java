@@ -1,6 +1,7 @@
 package com.strong.tools.recyclerview;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,43 +15,68 @@ import java.util.List;
  */
 
 public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
-    private BaseRecyclerViewCallback baseRecyclerViewCallback;
-    private List<V> items;
+    private BaseRecyclerViewCallback mBaseRecyclerViewCallback;
+    private List<V> mItems;
 
     //region 构造函数
     public BaseRecyclerViewAdapter() {
     }
 
     public BaseRecyclerViewAdapter(BaseRecyclerViewCallback baseRecyclerViewCallback, List<V> items) {
-        this.baseRecyclerViewCallback = baseRecyclerViewCallback;
-        this.items = items;
+        this.mBaseRecyclerViewCallback = baseRecyclerViewCallback;
+        this.mItems = items;
     }
     //endregion
 
     //region setter getter
     public BaseRecyclerViewCallback getBaseRecyclerViewCallback() {
-        return baseRecyclerViewCallback;
+        return mBaseRecyclerViewCallback;
     }
 
     public void setBaseRecyclerViewCallback(BaseRecyclerViewCallback baseRecyclerViewCallback) {
-        this.baseRecyclerViewCallback = baseRecyclerViewCallback;
+        this.mBaseRecyclerViewCallback = baseRecyclerViewCallback;
     }
 
     public V getItem(int position) {
-        if (items != null && position < items.size()) {
-            return items.get(position);
+        if (mItems != null && position < mItems.size()) {
+            return mItems.get(position);
         } else {
             return null;
         }
     }
 
     public List<V> getItems() {
-        return items;
+        return mItems;
     }
 
     public void setItems(List<V> items) {
-        this.items = items;
-        notifyDataSetChanged();
+        if (mItems == null) {
+            this.mItems = items;
+            notifyDataSetChanged();
+        } else {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+                    return mItems.size();
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return items.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                    return mBaseRecyclerViewCallback.areItemsTheSame(mItems.get(oldItemPosition), items.get(newItemPosition));
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                    return mBaseRecyclerViewCallback.areContentsTheSame(mItems.get(oldItemPosition), items.get(newItemPosition));
+                }
+            });
+
+        }
     }
     //endregion
 
@@ -58,7 +84,7 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(baseRecyclerViewCallback.getViewRes(), parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(mBaseRecyclerViewCallback.getViewRes(), parent, false);
         return new BaseViewHolder(v) {
 
         };
@@ -67,32 +93,32 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder != null && holder.itemView != null) {
-            if (baseRecyclerViewCallback != null) {
-                baseRecyclerViewCallback.onBindView((BaseViewHolder) holder, position, getItem(position));
+            if (mBaseRecyclerViewCallback != null) {
+                mBaseRecyclerViewCallback.onBindView((BaseViewHolder) holder, position, getItem(position));
             }
-            holder.itemView.setOnClickListener(view -> {
-                if (baseRecyclerViewCallback != null) {
-                    baseRecyclerViewCallback.onClickItem(view, position, getItem(position));
-                }
-            });
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (baseRecyclerViewCallback != null) {
-                        return baseRecyclerViewCallback.onLongClickItem(view, position, getItem(position));
-                    }
-                    return false;
-                }
-            });
+//            holder.itemView.setOnClickListener(view -> {
+//                if (mBaseRecyclerViewCallback != null) {
+//                    mBaseRecyclerViewCallback.onClickItem(view, position, getItem(position));
+//                }
+//            });
+//            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    if (mBaseRecyclerViewCallback != null) {
+//                        return mBaseRecyclerViewCallback.onLongClickItem(view, position, getItem(position));
+//                    }
+//                    return false;
+//                }
+//            });
         }
     }
 
     @Override
     public int getItemCount() {
-        if (items == null) {
+        if (mItems == null) {
             return 0;
         } else {
-            return items.size();
+            return mItems.size();
         }
     }
     //endregion

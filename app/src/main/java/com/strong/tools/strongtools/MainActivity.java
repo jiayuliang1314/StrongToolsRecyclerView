@@ -3,7 +3,6 @@ package com.strong.tools.strongtools;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,21 +31,34 @@ public class MainActivity extends AppCompatActivity {
             public void onBindView(BaseViewHolder holder, int position, String item) {
                 TextView textView = (TextView) holder.getView(R.id.text);
                 textView.setText(item);
+                holder.itemView.setOnClickListener(view -> {
+                    Toast.makeText(MainActivity.this, "onClickItem " + item, Toast.LENGTH_SHORT).show();
+                });
             }
 
-            @Override
-            public void onClickItem(View view, int position, String item) {
-                Toast.makeText(MainActivity.this, "onClickItem "+item, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public boolean onLongClickItem(View view, int position, String item) {
-                return false;
-            }
+//            @Override
+//            public void onClickItem(View view, int position, String item) {
+//                Toast.makeText(MainActivity.this, "onClickItem " + item, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public boolean onLongClickItem(View view, int position, String item) {
+//                return false;
+//            }
 
             @Override
             public int getViewRes() {
                 return R.layout.suggest_message_view_item;
+            }
+
+            @Override
+            public boolean areItemsTheSame(String oldItem, String newItem) {
+                return oldItem.equals(newItem);
+            }
+
+            @Override
+            public boolean areContentsTheSame(String oldItem, String newItem) {
+                return oldItem.equals(newItem);
             }
         });
         List<String> list = new ArrayList<>();
