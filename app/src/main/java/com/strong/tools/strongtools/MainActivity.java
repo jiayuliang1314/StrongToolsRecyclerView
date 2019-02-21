@@ -2,6 +2,8 @@ package com.strong.tools.strongtools;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         suggestAdapter.setItems(list);
 
         //RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
-        RecyclerViewUtils.setLayoutManager(this, recyclerView, RecyclerViewUtils.LinearLayoutManagerVertical);
-        RecyclerViewUtils.addItemDecoration(this, recyclerView, RecyclerViewUtils.DividerItemDecorationVertical);
+        RecyclerViewUtils.setLinearLayoutManager(this, recyclerView, LinearLayoutManager.VERTICAL, false);
+        RecyclerViewUtils.addDividerItemDecoration(this, recyclerView, DividerItemDecoration.VERTICAL);
         recyclerView.setAdapter(suggestAdapter);
     }
 }
