@@ -75,7 +75,8 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
                     return mBaseRecyclerViewCallback.areContentsTheSame(mItems.get(oldItemPosition), items.get(newItemPosition));
                 }
             });
-
+            this.mItems = items;
+            result.dispatchUpdatesTo(this);
         }
     }
     //endregion
