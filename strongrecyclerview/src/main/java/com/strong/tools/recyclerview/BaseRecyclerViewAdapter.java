@@ -66,6 +66,9 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
                 @Override
                 public int getNewListSize() {
+                    if (items == null) {
+                        return 0;
+                    }
                     return items.size();
                 }
 

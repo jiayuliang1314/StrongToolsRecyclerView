@@ -89,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.removeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (list.size() == 0) {
+                    Toast.makeText(MainActivity.this, "List now is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 list.remove(list.size() - 1);
                 suggestAdapter.setItems(list);
             }
