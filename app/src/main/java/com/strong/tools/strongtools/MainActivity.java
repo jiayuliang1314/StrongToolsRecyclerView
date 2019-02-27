@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,13 @@ public class MainActivity extends AppCompatActivity {
             public void onBindView(BaseViewHolder holder, int position, String item) {
                 TextView textView = (TextView) holder.getView(R.id.text);
                 textView.setText(item);
-                holder.itemView.setOnClickListener(view -> {
+                LinearLayout delete = (LinearLayout) holder.getView(R.id.delete);
+                textView.setOnClickListener(view -> {
                     Toast.makeText(MainActivity.this, "onClickItem " + item, Toast.LENGTH_SHORT).show();
+                });
+                delete.setOnClickListener(view -> {
+                    list.remove(position);
+                    suggestAdapter.setItems(list);
                 });
             }
 
