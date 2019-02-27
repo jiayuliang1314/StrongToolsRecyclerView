@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +21,13 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
     //region 构造函数
     public BaseRecyclerViewAdapter() {
+        setHasStableIds(true);
     }
 
     public BaseRecyclerViewAdapter(BaseRecyclerViewCallback baseRecyclerViewCallback, List<V> items) {
         this.mBaseRecyclerViewCallback = baseRecyclerViewCallback;
         this.mItems = items;
+        setHasStableIds(true);
     }
     //endregion
 
@@ -51,7 +54,8 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
     public void setItems(List<V> items) {
         if (mItems == null) {
-            this.mItems = items;
+            this.mItems = new ArrayList<V>();
+            this.mItems.addAll(items);      //防止浅拷贝
             notifyDataSetChanged();
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
@@ -75,7 +79,8 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
                     return mBaseRecyclerViewCallback.areContentsTheSame(mItems.get(oldItemPosition), items.get(newItemPosition));
                 }
             });
-            this.mItems = items;
+            this.mItems = new ArrayList<V>();
+            this.mItems.addAll(items);          //防止浅拷贝
             result.dispatchUpdatesTo(this);
         }
     }
@@ -97,20 +102,6 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
             if (mBaseRecyclerViewCallback != null) {
                 mBaseRecyclerViewCallback.onBindView((BaseViewHolder) holder, position, getItem(position));
             }
-//            holder.itemView.setOnClickListener(view -> {
-//                if (mBaseRecyclerViewCallback != null) {
-//                    mBaseRecyclerViewCallback.onClickItem(view, position, getItem(position));
-//                }
-//            });
-//            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View view) {
-//                    if (mBaseRecyclerViewCallback != null) {
-//                        return mBaseRecyclerViewCallback.onLongClickItem(view, position, getItem(position));
-//                    }
-//                    return false;
-//                }
-//            });
         }
     }
 
@@ -121,6 +112,14 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
         } else {
             return mItems.size();
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        if (mBaseRecyclerViewCallback != null) {
+            return mBaseRecyclerViewCallback.getItemId(getItem(position), position);
+        }
+        return position;
     }
     //endregion
 }

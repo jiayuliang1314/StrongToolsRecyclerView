@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerViewAdapter suggestAdapter;
+    private List<String> list = new ArrayList<>();
+    private int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
 
-//            @Override
-//            public void onClickItem(View view, int position, String item) {
-//                Toast.makeText(MainActivity.this, "onClickItem " + item, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public boolean onLongClickItem(View view, int position, String item) {
-//                return false;
-//            }
-
             @Override
             public int getViewRes() {
                 return R.layout.suggest_message_view_item;
@@ -55,23 +48,44 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean areItemsTheSame(String oldItem, String newItem) {
-                return oldItem.equals(newItem);
+                return oldItem != null && oldItem.equals(newItem);
             }
 
             @Override
             public boolean areContentsTheSame(String oldItem, String newItem) {
-                return oldItem.equals(newItem);
+                return oldItem != null && oldItem.equals(newItem);
+            }
+
+            @Override
+            public long getItemId(String item, int position) {
+                return position;
             }
         });
-        List<String> list = new ArrayList<>();
-        list.add("123");
-        list.add("234");
-        list.add("345");
+
+        list.add("" + i++);
+        list.add("" + i++);
+        list.add("" + i++);
         suggestAdapter.setItems(list);
 
         //RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
         RecyclerViewUtils.setLinearLayoutManager(this, recyclerView, LinearLayoutManager.VERTICAL, false);
         RecyclerViewUtils.addDividerItemDecoration(this, recyclerView, DividerItemDecoration.VERTICAL);
         recyclerView.setAdapter(suggestAdapter);
+
+        findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.add("" + i++);
+                suggestAdapter.setItems(list);
+            }
+        });
+
+        findViewById(R.id.removeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.remove(list.size() - 1);
+                suggestAdapter.setItems(list);
+            }
+        });
     }
 }

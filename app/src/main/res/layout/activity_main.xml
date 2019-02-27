@@ -22,4 +22,27 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="3dp"
+        android:background="@color/colorPrimary"
+        android:text="Add"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/removeButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="3dp"
+        android:background="@color/colorPrimary"
+        android:text="Remove"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>
