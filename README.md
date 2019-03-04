@@ -10,7 +10,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.8'
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:1.9'
 ```
 
 ## 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
@@ -25,7 +25,12 @@ public interface BaseRecyclerViewCallback<T> {
      */
     void onBindView(BaseViewHolder holder, int position, T item);
 
-    int getViewRes();
+    /**
+     * 得到res id
+     * @param viewType
+     * @return
+     */
+    int getViewRes(int viewType);
 
     /**
      * 提供给DiffUtil类使用，用于刷新
@@ -53,6 +58,14 @@ public interface BaseRecyclerViewCallback<T> {
      * @return
      */
     long getItemId(T item, int position);
+
+    /**
+     * 返回item type
+     *
+     * @param position
+     * @return
+     */
+    int getItemViewType(int position);
 }
 ```
 ## 2.RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
