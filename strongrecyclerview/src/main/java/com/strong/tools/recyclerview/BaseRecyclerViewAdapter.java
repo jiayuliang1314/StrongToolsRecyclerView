@@ -93,7 +93,7 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(mBaseRecyclerViewCallback.getViewRes(), parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(mBaseRecyclerViewCallback.getViewRes(viewType), parent, false);
         return new BaseViewHolder(v) {
 
         };
@@ -106,6 +106,14 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
                 mBaseRecyclerViewCallback.onBindView((BaseViewHolder) holder, position, getItem(position));
             }
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mBaseRecyclerViewCallback != null) {
+            return mBaseRecyclerViewCallback.getItemViewType(position);
+        }
+        return 0;
     }
 
     @Override
@@ -125,4 +133,40 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
         return position;
     }
     //endregion
+
+    /**
+     * BaseRecyclerViewCallback Adapter
+     */
+    public class BaseRecyclerViewCallbackAdapter implements BaseRecyclerViewCallback {
+
+        @Override
+        public void onBindView(BaseViewHolder holder, int position, Object item) {
+
+        }
+
+        @Override
+        public int getViewRes(int viewType) {
+            return 0;
+        }
+
+        @Override
+        public boolean areItemsTheSame(Object oldItem, Object newItem) {
+            return false;
+        }
+
+        @Override
+        public boolean areContentsTheSame(Object oldItem, Object newItem) {
+            return false;
+        }
+
+        @Override
+        public long getItemId(Object item, int position) {
+            return 0;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return 0;
+        }
+    }
 }

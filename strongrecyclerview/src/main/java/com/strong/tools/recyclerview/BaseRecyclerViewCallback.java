@@ -15,7 +15,12 @@ public interface BaseRecyclerViewCallback<T> {
      */
     void onBindView(BaseViewHolder holder, int position, T item);
 
-    int getViewRes();
+    /**
+     * 得到res id
+     * @param viewType
+     * @return
+     */
+    int getViewRes(int viewType);
 
     /**
      * 提供给DiffUtil类使用，用于刷新
@@ -43,4 +48,12 @@ public interface BaseRecyclerViewCallback<T> {
      * @return
      */
     long getItemId(T item, int position);
+
+    /**
+     * 返回item type
+     *
+     * @param position
+     * @return
+     */
+    int getItemViewType(int position);
 }

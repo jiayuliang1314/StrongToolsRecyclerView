@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public int getViewRes() {
+            public int getViewRes(int viewType) {
                 return R.layout.suggest_message_view_item;
             }
 
@@ -65,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public long getItemId(String item, int position) {
                 return position;
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                return 0;
             }
         });
 
