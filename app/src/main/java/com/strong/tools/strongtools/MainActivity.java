@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +20,12 @@ import com.strong.tools.recyclerview.RecyclerViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import glide.GlideManager;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerViewAdapter suggestAdapter;
-    private List<String> list = new ArrayList<>();
+    private List<People> list = new ArrayList<>();
     private int i = 0;
 
     @Override
@@ -33,14 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
         //简化RecyclerView.Adapter的创建
         suggestAdapter = new BaseRecyclerViewAdapter();
-        suggestAdapter.setHasStableIds(false);
-        suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<String>() {
+        suggestAdapter.setHasStableIds(true);
+        suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<People>() {
             @Override
-            public void onBindView(BaseViewHolder holder, int position, String item) {
+            public void onBindView(BaseViewHolder holder, int position, People item) {
                 Log.i("onBindView", "position " + position + " item " + item);
 
                 TextView textView = (TextView) holder.getView(R.id.text);
-                textView.setText(item);
+                textView.setText(item.name);
+                ImageView icon = (ImageView) holder.getView(R.id.icon);
+                GlideManager.getInstance(MainActivity.this).loadNet(item.photo, icon);
+
                 LinearLayout delete = (LinearLayout) holder.getView(R.id.delete);
                 LinearLayout add = (LinearLayout) holder.getView(R.id.add);
                 holder.itemView.setOnClickListener(view -> {
@@ -49,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("onBindViewOnClick", "positionWhenOnClick  NO_POSITION");
                         return;
                     }
-                    Log.i("onBindViewOnClick", "position " + position + " item " + item);
-                    Log.i("onBindViewOnClick", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
-                    Toast.makeText(MainActivity.this, "onBindViewOnClick " + list.get(positionWhenOnClick), Toast.LENGTH_SHORT).show();
+                    People people = list.get(positionWhenOnClick);
+                    people.updatePeoplePhoto();
+                    suggestAdapter.notifyDataSetChanged();
                 });
                 delete.setOnClickListener(view -> {
                     int positionWhenOnClick = holder.getAdapterPosition();
@@ -72,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("onBindViewOnAdd", "positionWhenOnClick  NO_POSITION");
                         return;
                     }
-                    list.add(positionWhenOnClick, list.get(positionWhenOnClick) + "");
-                    for(String i:list){
-                        Log.i("onBindViewOnAdd i ", "positionWhenOnClick "+i);
-                    }
+                    list.add(positionWhenOnClick, new People(i++, "" + i, ""));
                     suggestAdapter.setItems(list);
                     Log.i("onBindViewOnAdd", "position " + position + " item " + item);
                     Log.i("onBindViewOnAdd", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
@@ -90,18 +93,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean areItemsTheSame(String oldItem, String newItem) {
+            public boolean areItemsTheSame(People oldItem, People newItem) {
+                return oldItem != null && oldItem.id == newItem.id;
+            }
+
+            @Override
+            public boolean areContentsTheSame(People oldItem, People newItem) {
                 return oldItem != null && oldItem.equals(newItem);
             }
 
             @Override
-            public boolean areContentsTheSame(String oldItem, String newItem) {
-                return oldItem != null && oldItem.equals(newItem);
-            }
-
-            @Override
-            public long getItemId(String item, int position) {
-                return position;
+            public long getItemId(People item, int position) {
+                return item.id;
             }
 
             @Override
@@ -110,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        list.add("" + i++);
-        list.add("" + i++);
-        list.add("" + i++);
+        list.add(new People(i++, "" + i, ""));
+        list.add(new People(i++, "" + i, ""));
+        list.add(new People(i++, "" + i, ""));
         suggestAdapter.setItems(list);
 
         //RecyclerViewUtils简化设置LayoutManager，添加Android自带的分割线等操作
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.add("" + i++);
+                list.add(new People(i++, "" + i, ""));
                 suggestAdapter.setItems(list);
             }
         });

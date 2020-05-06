@@ -21,13 +21,17 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
     //region 构造函数
     public BaseRecyclerViewAdapter() {
-        setHasStableIds(false);//只在有图片的时候，需要设置为true
+        //只在有图片的时候，需要设置为true，解决闪烁问题
+        //为true的时候getItemId，需要返回id,不建议返回position位置，应返回item的唯一id，否则插入删除可能混乱
+        setHasStableIds(false);
     }
 
     public BaseRecyclerViewAdapter(BaseRecyclerViewCallback baseRecyclerViewCallback, List<V> items) {
         this.mBaseRecyclerViewCallback = baseRecyclerViewCallback;
         this.mItems = items;
-        setHasStableIds(false);//只在有图片的时候，需要设置为true
+        //只在有图片的时候，需要设置为true，解决闪烁问题
+        //为true的时候getItemId，需要返回id,不建议返回position位置，应返回item的唯一id，否则插入删除可能混乱
+        setHasStableIds(false);
     }
     //endregion
 
