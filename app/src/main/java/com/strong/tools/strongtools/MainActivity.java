@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,18 +33,54 @@ public class MainActivity extends AppCompatActivity {
 
         //简化RecyclerView.Adapter的创建
         suggestAdapter = new BaseRecyclerViewAdapter();
+        suggestAdapter.setHasStableIds(false);
         suggestAdapter.setBaseRecyclerViewCallback(new BaseRecyclerViewCallback<String>() {
             @Override
             public void onBindView(BaseViewHolder holder, int position, String item) {
+                Log.i("onBindView", "position " + position + " item " + item);
+
                 TextView textView = (TextView) holder.getView(R.id.text);
                 textView.setText(item);
                 LinearLayout delete = (LinearLayout) holder.getView(R.id.delete);
-                textView.setOnClickListener(view -> {
-                    Toast.makeText(MainActivity.this, "onClickItem " + item, Toast.LENGTH_SHORT).show();
+                LinearLayout add = (LinearLayout) holder.getView(R.id.add);
+                holder.itemView.setOnClickListener(view -> {
+                    int positionWhenOnClick = holder.getAdapterPosition();
+                    if (positionWhenOnClick == RecyclerView.NO_POSITION) {
+                        Log.i("onBindViewOnClick", "positionWhenOnClick  NO_POSITION");
+                        return;
+                    }
+                    Log.i("onBindViewOnClick", "position " + position + " item " + item);
+                    Log.i("onBindViewOnClick", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
+                    Toast.makeText(MainActivity.this, "onBindViewOnClick " + list.get(positionWhenOnClick), Toast.LENGTH_SHORT).show();
                 });
                 delete.setOnClickListener(view -> {
-                    list.remove(position);
+                    int positionWhenOnClick = holder.getAdapterPosition();
+                    if (positionWhenOnClick == RecyclerView.NO_POSITION) {
+                        Log.i("onBindViewOnDelete", "positionWhenOnClick  NO_POSITION");
+                        return;
+                    }
+                    list.remove(positionWhenOnClick);
                     suggestAdapter.setItems(list);
+                    Log.i("onBindViewOnDelete", "position " + position + " item " + item);
+//                    Log.i("onBindViewOnDelete", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
+                    Toast.makeText(MainActivity.this, "onBindViewOnDelete " + positionWhenOnClick, Toast.LENGTH_SHORT).show();
+
+                });
+                add.setOnClickListener(view -> {
+                    int positionWhenOnClick = holder.getAdapterPosition();
+                    if (positionWhenOnClick == RecyclerView.NO_POSITION) {
+                        Log.i("onBindViewOnAdd", "positionWhenOnClick  NO_POSITION");
+                        return;
+                    }
+                    list.add(positionWhenOnClick, list.get(positionWhenOnClick) + "");
+                    for(String i:list){
+                        Log.i("onBindViewOnAdd i ", "positionWhenOnClick "+i);
+                    }
+                    suggestAdapter.setItems(list);
+                    Log.i("onBindViewOnAdd", "position " + position + " item " + item);
+                    Log.i("onBindViewOnAdd", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
+                    Toast.makeText(MainActivity.this, "onBindViewOnAdd " + list.get(positionWhenOnClick), Toast.LENGTH_SHORT).show();
+
                 });
             }
 

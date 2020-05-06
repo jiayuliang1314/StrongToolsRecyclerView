@@ -21,13 +21,13 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
     //region 构造函数
     public BaseRecyclerViewAdapter() {
-        setHasStableIds(true);
+        setHasStableIds(false);//只在有图片的时候，需要设置为true
     }
 
     public BaseRecyclerViewAdapter(BaseRecyclerViewCallback baseRecyclerViewCallback, List<V> items) {
         this.mBaseRecyclerViewCallback = baseRecyclerViewCallback;
         this.mItems = items;
-        setHasStableIds(true);
+        setHasStableIds(false);//只在有图片的时候，需要设置为true
     }
     //endregion
 
@@ -127,6 +127,9 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
 
     @Override
     public long getItemId(int position) {
+        if (!hasStableIds()) {
+            return super.getItemId(position);
+        }
         if (mBaseRecyclerViewCallback != null) {
             return mBaseRecyclerViewCallback.getItemId(getItem(position), position);
         }

@@ -4,56 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.strong.tools.recyclerview.SwipeView
-        android:id="@+id/swip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp">
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="43dp"
+            android:gravity="left"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="16dp"
+            tools:text="test" />
 
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="43dp"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="16dp"
-                tools:text="test" />
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/ic_launcher" />
-        </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/delete"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="#FF5A5F"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/delete"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:background="#FF5A5F"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:text="Delete"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Delete"
-                android:textColor="#ffffff"
-                android:textSize="17sp" />
-        </LinearLayout>
-    </com.strong.tools.recyclerview.SwipeView>
+    <LinearLayout
+        android:id="@+id/add"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:background="#FF5A5F"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Add"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+    </LinearLayout>
 
 </FrameLayout>
