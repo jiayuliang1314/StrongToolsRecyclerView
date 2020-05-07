@@ -16,14 +16,14 @@ public class People {
     public People() {
     }
 
-    public People(int id, String name, String photo) {
+    public People(int id, String name, String p) {
         this.id = id;
         this.name = name;
-        photo = photos[Math.abs(new Random(System.currentTimeMillis()).nextInt() % 4)];
+        this.photo = photos[Math.abs(new Random().nextInt() % 4)];
     }
 
     public void updatePeoplePhoto() {
-        photo = photos[Math.abs(new Random(System.currentTimeMillis()).nextInt() % 4)];
+        photo = photos[Math.abs(new Random().nextInt() % 4)];
     }
 
     @Override
