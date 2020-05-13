@@ -80,7 +80,9 @@ public interface BaseRecyclerViewCallback<T> {
 
 ## 4.item的事件位置获取要使用getAdapterPosition()
 item的事件点击要使用getAdapterPosition获取当前位置，这是因为DiffUtil在使用的时候，元素位置只是切换，但内容不变的情况下，onBindViewHolder不会调用，onBindViewHolder的参数position也会失效
+```
 int positionWhenOnClick = holder.getAdapterPosition();
 if (positionWhenOnClick == RecyclerView.NO_POSITION) {
 return;
 }
+```
