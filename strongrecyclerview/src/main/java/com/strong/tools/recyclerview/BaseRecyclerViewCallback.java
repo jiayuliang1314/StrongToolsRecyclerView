@@ -2,7 +2,7 @@ package com.strong.tools.recyclerview;
 
 /**
  * BaseRecyclerViewCallback
- *
+ * @author jia
  * @param <T> T是item的类型
  */
 public interface BaseRecyclerViewCallback<T> {

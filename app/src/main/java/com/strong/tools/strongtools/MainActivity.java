@@ -22,6 +22,9 @@ import java.util.List;
 
 import glide.GlideManager;
 
+/**
+ * @author jia
+ */
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BaseRecyclerViewAdapter suggestAdapter;
@@ -68,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                     list.remove(positionWhenOnClick);
                     suggestAdapter.setItems(list);
                     Log.i("onBindViewOnDelete", "position " + position + " item " + item);
-//                    Log.i("onBindViewOnDelete", "positionWhenOnClick " + positionWhenOnClick + " itemWhenOnClick " + list.get(positionWhenOnClick));
                     Toast.makeText(MainActivity.this, "onBindViewOnDelete " + positionWhenOnClick, Toast.LENGTH_SHORT).show();
 
                 });

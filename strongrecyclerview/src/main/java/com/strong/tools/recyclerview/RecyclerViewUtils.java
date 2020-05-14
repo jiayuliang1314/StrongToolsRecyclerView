@@ -7,11 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+/**
+ * @author jia
+ */
 public class RecyclerViewUtils {
     private RecyclerViewUtils() {
     }
 
     //region set LayoutManager
+
     public static void setLinearLayoutManager(Context context, RecyclerView recyclerView, int orientation, boolean reverseLayout) {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, orientation, reverseLayout));
     }
@@ -26,6 +30,7 @@ public class RecyclerViewUtils {
     //endregion
 
     //region set DividerItemDecoration
+
     public static void addDividerItemDecoration(Context context, RecyclerView recyclerView, int orientation) {
         recyclerView.addItemDecoration(new DividerItemDecoration(context, orientation));
     }

@@ -3,6 +3,9 @@ package com.strong.tools.strongtools;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * @author jia
+ */
 public class People {
     public int id;
     public String name;

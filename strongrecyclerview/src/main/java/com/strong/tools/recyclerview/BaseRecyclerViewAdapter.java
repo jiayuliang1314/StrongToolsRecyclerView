@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jia on 2019/1/22.
+ * @author jia
  * BaseRecyclerViewAdapter 简单RecyclerView.Adapter封装，使用的时候传入BaseRecyclerViewCallback和Item list
  */
 
@@ -20,6 +20,7 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     private List<V> mItems;
 
     //region 构造函数
+
     public BaseRecyclerViewAdapter() {
         //只在有图片的时候，需要设置为true，解决闪烁问题
         //为true的时候getItemId，需要返回id,不建议返回position位置，应返回item的唯一id，否则插入删除可能混乱
@@ -36,6 +37,7 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     //endregion
 
     //region setter getter
+
     public BaseRecyclerViewCallback getBaseRecyclerViewCallback() {
         return mBaseRecyclerViewCallback;
     }
@@ -59,7 +61,8 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     public void setItems(List<V> items) {
         if (mItems == null) {
             this.mItems = new ArrayList<V>();
-            this.mItems.addAll(items);      //防止浅拷贝
+            //防止浅拷贝
+            this.mItems.addAll(items);
             notifyDataSetChanged();
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
@@ -87,13 +90,15 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
                 }
             });
             this.mItems = new ArrayList<V>();
-            this.mItems.addAll(items);          //防止浅拷贝
+            //防止浅拷贝
+            this.mItems.addAll(items);
             result.dispatchUpdatesTo(this);
         }
     }
     //endregion
 
     //region 继承函数
+
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
