@@ -95,6 +95,13 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
             result.dispatchUpdatesTo(this);
         }
     }
+
+    public void setItemsDirectly(List<V> items){
+        this.mItems = new ArrayList<V>();
+        //防止浅拷贝
+        this.mItems.addAll(items);
+        notifyDataSetChanged();
+    }
     //endregion
 
     //region 继承函数
