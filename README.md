@@ -10,7 +10,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:2.8'
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:2.9'
 ```
 
 ## 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
@@ -101,4 +101,16 @@ int positionWhenOnClick = holder.getAdapterPosition();
 if (positionWhenOnClick == RecyclerView.NO_POSITION) {
 return;
 }
+```
+
+## 5.databinding下代码支持databinding
+
+## 6.不规则使用diffutils可能会出现闪烁问题，反而直接设置元素，notifyDataSetChanged不会出现闪烁
+```
+    public void setItemsDirectly(List<V> items){
+        this.mItems = new ArrayList<V>();
+        //防止浅拷贝
+        this.mItems.addAll(items);
+        notifyDataSetChanged();
+    }
 ```
