@@ -17,7 +17,7 @@ import java.util.List;
 
 public class BaseRecyclerViewBindngAdapter<V> extends RecyclerView.Adapter {
     private BaseRecyclerViewBindingCallback mBaseRecyclerViewCallback;
-    private List<V> mItems;
+    public List<V> mItems;
 
     //region 构造函数
 
