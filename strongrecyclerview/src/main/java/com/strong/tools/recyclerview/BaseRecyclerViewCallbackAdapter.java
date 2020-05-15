@@ -17,12 +17,12 @@ public class BaseRecyclerViewCallbackAdapter<T> implements BaseRecyclerViewCallb
     }
 
     @Override
-    public boolean areItemsTheSame(Object oldItem, Object newItem) {
+    public boolean areItemsTheSame(T oldItem, T newItem) {
         return false;
     }
 
     @Override
-    public boolean areContentsTheSame(Object oldItem, Object newItem) {
+    public boolean areContentsTheSame(T oldItem, T newItem) {
         return false;
     }
 
@@ -33,7 +33,7 @@ public class BaseRecyclerViewCallbackAdapter<T> implements BaseRecyclerViewCallb
      * @return
      */
     @Override
-    public long getItemId(Object item, int position) {
+    public long getItemId(T item, int position) {
         return position;
     }
 
