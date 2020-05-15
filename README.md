@@ -10,7 +10,7 @@ allprojects {
     }
 }
 
-implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:2.3'
+implementation 'com.github.jiayuliang1314:StrongToolsRecyclerView:2.5'
 ```
 
 ## 1.简化RecyclerView.Adapter的创建,BaseRecyclerViewCallback包含了方法，只需实现此接口
