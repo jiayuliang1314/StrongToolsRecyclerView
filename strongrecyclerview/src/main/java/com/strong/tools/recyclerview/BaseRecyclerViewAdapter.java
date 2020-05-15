@@ -149,10 +149,10 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
     /**
      * BaseRecyclerViewCallback Adapter
      */
-    public class BaseRecyclerViewCallbackAdapter implements BaseRecyclerViewCallback {
+    public static class BaseRecyclerViewCallbackAdapter<T> implements BaseRecyclerViewCallback<T> {
 
         @Override
-        public void onBindView(BaseViewHolder holder, int position, Object item) {
+        public void onBindView(BaseViewHolder holder, int position, T item) {
 
         }
 
