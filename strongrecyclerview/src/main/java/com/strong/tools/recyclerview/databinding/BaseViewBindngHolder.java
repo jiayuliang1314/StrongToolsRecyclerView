@@ -17,4 +17,8 @@ public abstract class BaseViewBindngHolder<D extends ViewDataBinding> extends Re
         super(viewDataBinding.getRoot());
         mViewDataBinding = viewDataBinding;
     }
+
+    public D getViewDataBinding() {
+        return mViewDataBinding;
+    }
 }
