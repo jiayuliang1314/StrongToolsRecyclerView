@@ -41,7 +41,7 @@ public interface BaseRecyclerViewCallback<T> {
     boolean areContentsTheSame(T oldItem, T newItem);
 
     /**
-     * 返回Item 的id
+     * 返回Item 的id，唯一标示
      *
      * @param item
      * @param position

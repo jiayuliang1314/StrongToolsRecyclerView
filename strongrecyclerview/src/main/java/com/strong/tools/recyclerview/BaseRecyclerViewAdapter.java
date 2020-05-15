@@ -171,9 +171,15 @@ public class BaseRecyclerViewAdapter<V> extends RecyclerView.Adapter {
             return false;
         }
 
+        /**
+         * 返回item的唯一标示
+         * @param item
+         * @param position
+         * @return
+         */
         @Override
         public long getItemId(Object item, int position) {
-            return 0;
+            return position;
         }
 
         @Override
